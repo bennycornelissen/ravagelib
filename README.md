@@ -13,4 +13,6 @@ After using ravagelib, set to backfill 90 days
 ## How does it work?
 The `ravagelib` script generates dummy commits by updating a given `GENERATE_UPDATE_FILENAME` (default: `./update.txt`). It generates commits for `GENERATE_DAYS` amount of days in the past (default 7), and with a density of maximum `GENERATE_COMMIT_DENSITY` commits per day (default 3). It manipulates the `GIT_AUTHOR_DATE` and `GIT_COMMITTER_DATE` environment variables to create commits in the past.
 
+![generate](./generate.png)
+
 All you need to do is push.
