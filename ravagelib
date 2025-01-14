@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# shellcheck disable=2034,2086
+set -euo pipefail
+
+# set the amount of days to generate commits for. Default 365.
+readonly days=${GENERATE_DAYS:-365}
+
+# set the amount of commits per day to generate. Default 3.
+readonly commit_density=${GENERATE_COMMIT_DENSITY:-3}
+
+# set the file to touch for commits. Default ./update.txt
+readonly update_file=${GENERATE_UPDATE_FILENAME:-./update.txt}
+
+# stash unclean workspace. Defaults to true (1)
+readonly stash_unclean_workspace=${GENERATE_STASH_UNCLEAN_WORKSPACE:-1}
+
+for day in $(seq ${days}); do
+
+  # Generate the date by going ${day} amount of days
+  # backwards from today.
+  date="$(date -v -${day}d +"%Y-%m-%d")"
+
+  # Render a date/time format with an arbitrary time, because
+  # the Git Author/Commit override needs it
+  date_time="${date} 10:10:10 +0100"
+
+  # render a random amount of commits for each day,
+  # with ${commit_density} being the upper bound of the range.
+  n_commits=$(shuf -i 1-${commit_density} -n1)
+
+  # Generate the commits. We'll update our ${update_file} for each
+  # commit with a label that holds the date and the commit number.
+  # We also use that combo for the commit message. We then override
+  # the Git AuthorDate and CommitDate so we can commit in the past
+  # and trick Github.
+  for commit in $(seq ${n_commits}); do
+
+    # e.g. 2024-01-14-2
+    label="${date}-${commit}"
+
+    if [[ ${stash_unclean_workspace} -eq 1 ]]; then
+      git stash
+    fi
+
+    # Update our file so we have something to commit
+    echo "${label}" >${update_file}
+
+    # Commit some stuff
+    git add ${update_file}
+    GIT_COMMITTER_DATE=${date_time} GIT_AUTHOR_DATE=${date_time} git commit -m ${label}
+
+  done
+
+done
+
+echo "Done creating commits for the past ${days} days. Don't forget to 'git push'"
