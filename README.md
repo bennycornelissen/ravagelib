@@ -15,4 +15,8 @@ The `ravagelib` script generates dummy commits by updating a given `GENERATE_UPD
 
 ![generate](./generate.png)
 
+```bash
+GENERATE_DAYS=90 GENERATE_COMMIT_DENSITY=5 ./ravagelib
+```
+
 All you need to do is push.
