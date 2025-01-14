@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # set the amount of days to generate commits for. Default 365.
-readonly days=${GENERATE_DAYS:-365}
+readonly days=${GENERATE_DAYS:-7}
 
 # set the amount of commits per day to generate. Default 3.
 readonly commit_density=${GENERATE_COMMIT_DENSITY:-3}
