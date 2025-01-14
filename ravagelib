@@ -18,7 +18,14 @@ for day in $(seq ${days}); do
 
   # Generate the date by going ${day} amount of days
   # backwards from today.
-  date="$(date -v -${day}d +"%Y-%m-%d")"
+  if [[ $(uname) == "Darwin" ]]; then
+    date="$(date -v -${day}d +"%Y-%m-%d")"
+  elif [[ $(uname) == "Linux" ]]; then
+    date="$(date -d "-${day} days" +"%Y-%m-%d")"
+  else
+    echo "No supported platform for date... exiting.."
+    exit 1
+  fi
 
   # Render a date/time format with an arbitrary time, because
   # the Git Author/Commit override needs it

@@ -22,4 +22,4 @@ GENERATE_DAYS=90 GENERATE_COMMIT_DENSITY=5 ./ravagelib
 All you need to do is push.
 
 ## Caveats
-This was thrown together in **much** less time than the commit history may suggest (duh). It was also only tested on MacOS, and I expect some commands (like `date`) may throw errors on Linux.
+This was thrown together in **much** less time than the commit history may suggest (duh). It was also only tested on MacOS.. Linux _should_ be fine but wasn't tested.
