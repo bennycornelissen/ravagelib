@@ -3,9 +3,11 @@
 This is a demo repo to demonstrate how easy it is to manipulate the Github contribution graph by simply generating useless commits, **in the past**. If you need to bypass some bullshit gatekeeping in a hiring process, this may help. Or maybe you should re-evaluate your employment choices, but some job markets are tough right now, so I'm not here to judge.
 
 Before using ravagelib
+
 ![before](./before.png)
 
 After using ravagelib, set to backfill 90 days
+
 ![after](./after.png)
 
 ## How does it work?
